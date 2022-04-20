@@ -1,4 +1,4 @@
-# Clariry-Discord-Bot
+# Clarity-Discord-Bot
 
 Clarity#5720 Discord Bot
 Made for Clear Code's Discord Server
