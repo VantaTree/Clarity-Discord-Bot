@@ -19,7 +19,7 @@ class Help(commands.Cog):
 
     def all_role_check(self, ctx):
         roles = ctx.author.roles
-        if self.dev_role in roles or self.admin_role in roles or self.mod_roles in roles:
+        if self.dev_role in roles or self.admin_role in roles or self.mod_role in roles:
             return True
 
     def role_check(self, ctx, role, extra_help):
