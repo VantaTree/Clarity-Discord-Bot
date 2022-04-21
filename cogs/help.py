@@ -44,7 +44,7 @@ class Help(commands.Cog):
         if not entry or entry[0] == '++':
             extra_help = True if entry else False
             embed = Embed(title='Help', description='Description for all Categories', color=0xffaec8)
-            embed.set_footer(text='Do `/cc help (Categoty)` or `/cc help (Command)` for more help on it.')
+            embed.set_footer(text='Do `/cc help (Category)` or `/cc help (Command)` for more help on it.')
             for cog in self.client.cogs:
                 desc = self.client.cogs[cog].__doc__.split('||')
                 if not self.role_check(ctx, desc[-1], extra_help): continue
@@ -64,7 +64,7 @@ class Help(commands.Cog):
                     extra_desc = desc[0]
                     if cog.lower() == 'help' and self.all_role_check(ctx): extra_desc += '\nAdd **`++`** at the end of help cmd to show Mod help\n`/cc help ++` `/cc help (category|command) ++`'
                     embed = Embed(title=cog, description=extra_desc, color=0xffaec8)
-                    embed.set_footer(text='Do `/cc help (Categoty)` or `/cc help (Command)` for more help on it.')
+                    embed.set_footer(text='Do `/cc help (Category)` or `/cc help (Command)` for more help on it.')
                     for command in self.client.get_cog(cog).get_commands():
                         if not self.role_check(ctx, command.help.split("||")[-1], extra_help): continue
                         embed.add_field(name=command.name, value=command.help.split("||")[0], inline=False)
