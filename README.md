@@ -1,6 +1,6 @@
 # Clarity-Discord-Bot
 
-Clarity#5720 Discord Bot
+Clarity#5720 Basic Discord Bot
 Made for Clear Code's Discord Server
 Developer: VantaTree#2609
 
