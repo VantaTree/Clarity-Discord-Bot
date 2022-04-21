@@ -3,7 +3,7 @@ from .config import *
 
 class Embeds:
     def __init__(self):
-        self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and verify yourself\nDon't forget to get youself the Competence roles\nThen you can access the rest of this Server"
+        self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and verify yourself\nDon't forget to get yourself the Competence roles\nThen you can access the rest of this Server"
         self.DEVLOG = self.logdev()
         self.MODLOG = self.logmod()
         self.CMDERROR = self.cmderror()
