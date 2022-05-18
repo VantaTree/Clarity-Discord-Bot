@@ -1,4 +1,4 @@
-from discord.ext import commands
+ from discord.ext import commands
 from config.config import *
 from discord import Embed
 import discord

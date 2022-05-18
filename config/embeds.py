@@ -3,7 +3,8 @@ from .config import *
 
 class Embeds:
     def __init__(self):
-        self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and verify yourself\nDon't forget to get yourself the Competence roles\nThen you can access the rest of this Server"
+        #self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and verify yourself\nDon't forget to get yourself the Competence roles\nThen you can access the rest of this Server"
+        self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and get yourself the Competence roles\nThen you can start chatting in the Server"
         self.DEVLOG = self.logdev()
         self.MODLOG = self.logmod()
         self.CMDERROR = self.cmderror()
@@ -109,7 +110,7 @@ class Embeds:
             
         embed = Embed(
             title='Paste Code Online',
-            description='If you have a **large** amount of code you want to show, you can paste it on this website: **https://www.toptal.com/developers/hastebin/**. Paste your code on the website and press **Ctrl+S** to save it, then you can copy the link and send it here.',
+            description='If you have a **large** amount of code you want to show, you can paste it on this website: **https://paste.pythondiscord.com/**. Paste your code on the website and press **Ctrl+S** to save it, then you can copy the link and send it here.',
             color=0xffaec8
         )
         return embed

@@ -48,10 +48,10 @@ class Events(commands.Cog):
     async def on_member_join(self, member: discord.Member):
         '''on membber join a guild'''
 
-        await sleep(5)
+        await sleep(8)
         EMBEDS.WELCOME.description = EMBEDS.WELCOME_DESC.replace('[member.mention]', member.mention)
         await discord.utils.get(member.guild.channels, id=WELCOME_CHANNEL_ID).send(embed=EMBEDS.WELCOME)
-        
+        return
         role = discord.utils.get(member.guild.roles, id=NOT_INITIALIZED_ROLE_ID)
         if role not in member.roles:
             await member.add_roles(role)
