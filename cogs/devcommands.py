@@ -1,3 +1,4 @@
+from turtle import color
 import discord
 from os import listdir
 from config.config import *

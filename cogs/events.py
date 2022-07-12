@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 from config.config import *
 from config.embeds import Embeds
-from asyncio import sleep
+from asyncio import sleep as a_sleep
+from time import sleep as t_sleep
 
 EMBEDS = Embeds()
 
@@ -48,7 +49,7 @@ class Events(commands.Cog):
     async def on_member_join(self, member: discord.Member):
         '''on membber join a guild'''
 
-        await sleep(8)
+        a_sleep(8)
         EMBEDS.WELCOME.description = EMBEDS.WELCOME_DESC.replace('[member.mention]', member.mention)
         await discord.utils.get(member.guild.channels, id=WELCOME_CHANNEL_ID).send(embed=EMBEDS.WELCOME)
         return
