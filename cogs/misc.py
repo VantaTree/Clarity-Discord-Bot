@@ -20,5 +20,5 @@ class Misc(commands.Cog):
         await discord.utils.get(ctx.guild.text_channels, id=ANNOUNCEMENT_CHANNEL_ID).send(embed=embed)
 
 
-def setup(client):
-    client.add_cog(Misc(client))
+async def setup(client):
+    await client.add_cog(Misc(client))

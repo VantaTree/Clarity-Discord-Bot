@@ -57,5 +57,5 @@ class Events(commands.Cog):
         if role not in member.roles:
             await member.add_roles(role)
 
-def setup(client: commands.Bot):
-    client.add_cog(Events(client))
+async def setup(client: commands.Bot):
+    await client.add_cog(Events(client))

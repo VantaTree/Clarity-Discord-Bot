@@ -153,8 +153,8 @@ class WebInfo(commands.Cog):
 
 
 
-def setup(client: commands.Bot):
-    client.add_cog(General(client))
-    client.add_cog(Fun(client))
-    client.add_cog(BotInfo(client))
-    client.add_cog(WebInfo(client))
+async def setup(client: commands.Bot):
+    await client.add_cog(General(client))
+    await client.add_cog(Fun(client))
+    await client.add_cog(BotInfo(client))
+    await client.add_cog(WebInfo(client))

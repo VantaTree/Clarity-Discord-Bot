@@ -114,5 +114,5 @@ class Moderator(commands.Cog):
         await self.send_mod_log(ctx, result)
 
 
-def setup(client: commands.Bot):
-    client.add_cog(Moderator(client))
+async def setup(client: commands.Bot):
+    await client.add_cog(Moderator(client))
