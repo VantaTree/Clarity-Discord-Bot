@@ -57,5 +57,17 @@ class Events(commands.Cog):
         if role not in member.roles:
             await member.add_roles(role)
 
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        '''on message'''
+        
+        # promt user to share code using a website instead of sending a .py file
+
+        if message.channel.id not in (HELP_CHANNEL_ID, HELP_FORMS_ID, PERSONAL_BOT_COMMANDS_CHANNEL_ID): return
+        for att in message.attachments:
+            if att.filename.endswith(".py"):
+                content = "If you are trying to share a big chunk of code, please use the website https://paste.pythondiscord.com/. This makes it easier for people to read the code, especially for those on mobile."
+                await message.reply(content=content)
+
 async def setup(client: commands.Bot):
     await client.add_cog(Events(client))
