@@ -1,9 +1,11 @@
 import discord
-from os import listdir
+from os import listdir, getenv
 import asyncio
 # import uptime
 from discord.ext import commands
 from config.config import *
+
+TOKEN = getenv("TOKEN")
 
 intents = discord.Intents.all()
 

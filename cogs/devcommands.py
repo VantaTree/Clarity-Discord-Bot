@@ -29,7 +29,7 @@ class Developer(commands.Cog):
     @commands.has_role(DEVELOPER_ROLE_ID)
     async def load(self, ctx: commands.Context, extension):
         '''load a cog ||/cc load (cog) ||dev'''
-        self.client.load_extension(f'cogs.{extension}')
+        await self.client.load_extension(f'cogs.{extension}')
         await ctx.send(f"loaded {extension}", reference=ctx.message)
         await self.send_mod_log(ctx)
 
@@ -37,7 +37,7 @@ class Developer(commands.Cog):
     @commands.has_role(DEVELOPER_ROLE_ID)
     async def unload(self, ctx: commands.Context, extension):
         '''unload a cog ||/cc unload (cog) ||dev'''
-        self.client.unload_extension(f'cogs.{extension}')
+        await self.client.unload_extension(f'cogs.{extension}')
         await ctx.send(f"unloaded {extension}", reference=ctx.message)
         await self.send_mod_log(ctx)
 
@@ -46,12 +46,12 @@ class Developer(commands.Cog):
     async def reload(self, ctx: commands.Context, extension):
         '''reload a cog ||/cc reload (cog) ||dev'''
         try:
-            self.client.unload_extension(f'cogs.{extension}')
+            await self.client.unload_extension(f'cogs.{extension}')
             unload=True
         except commands.ExtensionNotLoaded:
             unload=False
         finally:
-            self.client.load_extension(f'cogs.{extension}')
+            await self.client.load_extension(f'cogs.{extension}')
             msg = f'reloaded {extension}' if unload else f'loaded {extension}'
             await ctx.send(msg, reference=ctx.message)
             await self.send_mod_log(ctx)
@@ -63,9 +63,9 @@ class Developer(commands.Cog):
         for filename in listdir('./cogs'):
             if filename.endswith('.py'):
                 try:
-                    self.client.unload_extension(f'cogs.{filename[:-3]}')
+                    await self.client.unload_extension(f'cogs.{filename[:-3]}')
                 except commands.ExtensionNotLoaded: pass
-                self.client.load_extension(f'cogs.{filename[:-3]}')
+                await self.client.load_extension(f'cogs.{filename[:-3]}')
         await ctx.send('reloaded all cogs', reference=ctx.message)
         await self.send_mod_log(ctx)
 
