@@ -1,7 +1,9 @@
 import discord
-from config.config import *
 from config.embeds import Embeds
 from discord.ext import commands
+from discord import app_commands as app_cmds
+from config.support import *
+from config.config import *
 
 EMBEDS = Embeds()
 

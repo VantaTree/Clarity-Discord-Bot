@@ -1,7 +1,8 @@
 import discord
-from os import listdir, getenv
+from os import getenv
 import asyncio
 # import uptime
+from discord import app_commands
 from discord.ext import commands
 from config.config import *
 
@@ -13,10 +14,11 @@ client = commands.Bot(command_prefix=PREFIXES, intents=intents)
 client.remove_command('help')
 
 async def load_all_extensions():
-    for filename in listdir('./cogs'):
-        if filename.endswith('.py'):
-            await client.load_extension(f'cogs.{filename[:-3]}')
+    for filename in COGS:
+        await client.load_extension(f'cogs.{filename}')
 
-# uptime.keep_alive()
-asyncio.run(load_all_extensions())
-client.run(TOKEN) #Bot to be used in a single Server(Configured in config.py)
+
+if __name__ == "__main__":
+    # uptime.keep_alive()
+    asyncio.run(load_all_extensions())
+    client.run(TOKEN) #Bot to be used in a single Server(Configured in config.py)

@@ -1,13 +1,14 @@
 import discord
-from pytube import YouTube, Channel, Playlist, exceptions
+from discord import app_commands as app_cmds
+from discord.ext import commands
 from random import choice
 from asyncio import sleep
+from pytube import YouTube, Channel, Playlist, exceptions
 from config.config import *
 from config.embeds import Embeds
-from discord.ext import commands
+from config.support import *
 
 EMBEDS = Embeds()
-ALLTEXT = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.-'
 
 class General(commands.Cog):
     '''General Commands'''
@@ -15,50 +16,51 @@ class General(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.client = client
     
-    @commands.command()
-    async def say(self, ctx, *, message=''):
+    @app_cmds.command(description="repeat user's message")
+    async def say(self, interaction:discord.Interaction, message:str):
         '''repeat user's message ||/cc say (message)'''
-        await ctx.send(f'{ctx.author.mention}: {message}')
+        await interaction.response.send_message(f'<{interaction.user.mention}>: {message}')
 
-    @commands.command()
-    async def code(self, ctx):
+    @app_cmds.command(description="show how to format code on dicord")
+    async def code(self, interaction:discord.Interaction):
         '''show how to format code on dicord ||/cc code'''
-        await ctx.send(embed=EMBEDS.CODE, reference=ctx.message)
+        await interaction.response.send_message(embed=EMBEDS.CODE)
 
-    @commands.command()
-    async def paste(self, ctx):
+    @app_cmds.command(description="direct someone on how to show large amount of code online")
+    async def paste(self, interaction:discord.Interaction):
         '''direct someone on how to show large amount of code online ||/cc paste'''
-        await ctx.send(embed=EMBEDS.PASTE, reference=ctx.message)
+        await interaction.response.send_message(embed=EMBEDS.PASTE)
 
-    @commands.command()
-    async def syntax(self, ctx):
-        '''show syntax for my commands ||/cc syntax'''
-        await ctx.send(embed=EMBEDS.SYNTAX, reference=ctx.message)
+    # @app_cmds.command(description="show syntax for my command")
+    # @commands.command()
+    # async def syntax(self, interaction:discord.Interaction):
+    #     '''show syntax for my commands ||/cc syntax'''
+    #     await interaction.response.send_message(embed=EMBEDS.SYNTAX)
 
 class BotInfo(commands.Cog):
     '''Bot's Information Commands'''
 
-    def __init__(self, client):
+    def __init__(self, client: commands.Bot):
         self.client = client
 
-    @commands.command()
-    async def ping(self, ctx):
+    @app_cmds.command(description="show bot's latency")
+    async def ping(self, interaction:discord.Interaction):
         '''show bot's latency ||/cc ping'''
         EMBEDS.PING.description = f'Ping: **{round(self.client.latency * 1000)}**ms'
-        await ctx.send(embed=EMBEDS.PING, reference=ctx.message)
+        await interaction.response.send_message(embed=EMBEDS.PING)
 
-    @commands.command()
-    async def version(self, ctx):
+    @app_cmds.command(description="show bot's version")
+    async def version(self, interaction:discord.Interaction):
         '''show bot's version ||/cc version'''
         EMBEDS.VERSION.description = f'**{BOT_VERSION}**'
-        await ctx.send(embed=EMBEDS.VERSION, reference=ctx.message)
+        await interaction.response.send_message(embed=EMBEDS.VERSION)
 
-    @commands.command()
-    async def token(self, ctx):
+    @app_cmds.command(description="show bot's token")
+    async def token(self, interaction:discord.Interaction):
         '''show bot's token ||/cc token'''
         fake_token = ''.join([choice(ALLTEXT) for _ in range(55)])
         EMBEDS.TOKEN.description = f'**{fake_token}**'
-        await ctx.send(embed=EMBEDS.TOKEN, reference=ctx.message)
+        await interaction.response.send_message(embed=EMBEDS.TOKEN)
 
 class Fun(commands.Cog):
     '''Misc Commands'''
@@ -75,27 +77,28 @@ class Fun(commands.Cog):
             for string in ('[]', '[=]', '[==]', '[=o=]', '[=O=]', '[=0=]', '[  ()  ]', '(   .   )'):
                 yield string
 
-    @commands.command()
-    async def animation(self, ctx: commands.context, animation):
+    @app_cmds.command(description="play an animation")
+    @app_cmds.choices(animation=[
+        app_cmds.Choice(name="countdown", value="countdown"),
+        app_cmds.Choice(name="text", value="text"),
+        ])
+    async def animation(self, interaction: discord.Interaction, animation:str):
         '''play an animation ||/cc animation (countdown|text)'''
-        if self.target_msg: return
         if animation == 'countdown':
-            self.target_msg = await ctx.send(f'5')
+            await interaction.response.send_message("5")
             for i in range(4,-1,-1):
                 await sleep(1)
-                await self.target_msg.edit(content=str(i))
+                await interaction.edit_original_response(content=str(i))
             await sleep(1)
-            await self.target_msg.edit(content='BOOM!')
-            self.target_msg = None
+            await interaction.edit_original_response(content="BOOM!")
 
         elif animation == 'text':
-            self.target_msg = await ctx.send(f'.')
+            await interaction.response.send_message(".")
             text = choice(self.texts)
             for i in text.replace(' ', '.'):
-                await self.target_msg.edit(content=i)
+                await interaction.edit_original_response(content=i)
                 await sleep(0.8)
-            await self.target_msg.edit(content=text)
-            self.target_msg = None
+            await interaction.edit_original_response(content=text)
 
 class WebInfo(commands.Cog):
     '''Get Information from Web'''
@@ -103,18 +106,18 @@ class WebInfo(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
-    async def video(self, ctx, vid_url):
+    @app_cmds.command(description="show info on a Youtube video")
+    async def video(self, interaction: discord.Interaction, vid_url:str):
         '''show info on a Youtube video ||/cc video (url)'''
         try:
             error=None
             video = YouTube(vid_url)
-            embed = discord.Embed(title=video.title, description=f"{video.description[:150]}...", color=0xff0000)
+            embed = discord.Embed(title=video.title, description=f"**description:**\n{video.description[:150]}...", color=0xff0000)
             embed.set_author(name=video.author)
             embed.set_image(url=video.thumbnail_url)
             n = '\n'
-            embed.add_field(name='Info', value=f"**Duration:** {video.length//60}:{video.length%60} {n}**Views:** {video.views} {n}**Date Published:** {video.publish_date.date()} {f'{n}**Rating:** {video.rating}' if video.rating else ''}", inline=False)
-            await ctx.send(embed=embed, reference=ctx.message)
+            embed.add_field(name='Info:-', value=f"**Duration:** {video.length//60}:{video.length%60} {n}**Views:** {video.views} {n}**Date Published:** {video.publish_date.date()} {f'{n}**Rating:** {video.rating}' if video.rating else ''}", inline=False)
+            await interaction.response.send_message(embed=embed)
         except exceptions.RegexMatchError:
             error = f'Bad Youtube video URL'
         except exceptions.MembersOnly:
@@ -129,9 +132,11 @@ class WebInfo(commands.Cog):
             error = f"Video is age restricted"
         except exceptions.VideoUnavailable:
             error = f"Video is unavailable"
+        except Exception as e:
+            error = str(e)
         finally:
             if error:
-                await ctx.send(error, reference=ctx.message)
+                await interaction.response.send_message(error)
 
     # @commands.command()
     # async def channel(self, ctx, channel_url):

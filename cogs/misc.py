@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+from discord import app_commands as app_cmds
+from config.support import *
 from config.config import *
 from asyncio import sleep
 

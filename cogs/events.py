@@ -1,9 +1,10 @@
 import discord
 from discord.ext import commands
-from config.config import *
-from config.embeds import Embeds
 from asyncio import sleep as a_sleep
 from time import sleep as t_sleep
+from config.config import *
+from config.embeds import Embeds
+from config.support import *
 
 EMBEDS = Embeds()
 
@@ -17,6 +18,9 @@ class Events(commands.Cog):
     async def on_ready(self):
         '''on ready to recieve information'''
         await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='/cc help'))
+
+        print(await sync_bot(self.client))
+
         print(f'Bot Connected.')
         print('='*45)
 

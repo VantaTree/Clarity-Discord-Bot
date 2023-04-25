@@ -3,7 +3,6 @@ from .config import *
 
 class Embeds:
     def __init__(self):
-        #self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and verify yourself\nDon't forget to get yourself the Competence roles\nThen you can access the rest of this Server"
         self.WELCOME_DESC = f"Hi I am Clarity, [member.mention] Welcome to Clear Code's server\nTo get started, please go to <#{ROLES_CHANNEL_ID}> and get yourself the Competence roles\nThen you can start chatting in the Server"
         self.DEVLOG = self.logdev()
         self.MODLOG = self.logmod()
@@ -20,7 +19,7 @@ class Embeds:
     def logdev(self):
         embed = Embed(
             title="Dev Command Issued",
-            description="desc",
+            description="lorem ipsum",
             color=0xffaec8
         )
         return embed
@@ -28,7 +27,7 @@ class Embeds:
     def logmod(self):
         embed = Embed(
             title="Mod Command Issued",
-            description="desc",
+            description="lorem ipsum",
             color=0xffaec8
         )
         return embed
@@ -36,7 +35,7 @@ class Embeds:
     def cmderror(self):
         embed = Embed(
             title="Command Error",
-            description="desc",
+            description="lorem ipsum",
             color=0xffaec8
         )
         return embed
@@ -44,7 +43,7 @@ class Embeds:
     def syserror(self):
         embed = Embed(
             title="System Error",
-            description="desc",
+            description="lorem ipsum",
             color=0xffaec8
         )
         return embed
@@ -63,7 +62,7 @@ class Embeds:
 
         embed = Embed(
             title='Pong!',
-            description=f'desc',
+            description=f'lorem ipsum',
             color=0xffaec8
         )
         return embed
@@ -72,7 +71,7 @@ class Embeds:
 
         embed = Embed(
             title='Bot Version',
-            description=f'desc',
+            description=f'lorem ipsum',
             color=0xffaec8
         )
         return embed
@@ -81,7 +80,7 @@ class Embeds:
 
         embed = Embed(
             title='Bot Token',
-            description=f'desc',
+            description=f'lorem ipsum',
             color=0xffaec8
         )
         return embed

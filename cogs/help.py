@@ -1,8 +1,10 @@
-from discord.ext import commands
-from config.config import *
-from discord import Embed
 import discord
-# from config.embeds import Embeds
+from discord.ext import commands
+from discord import app_commands as app_cmds
+from discord import Embed
+from config.config import *
+from config.embeds import Embeds
+from config.support import *
 
 class Help(commands.Cog):
     '''Help Command'''
